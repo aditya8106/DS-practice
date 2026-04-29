@@ -14,8 +14,8 @@ function isAnagram(s, t) {
     }
     return true;
 }
-console.log(isAnagrsam("listen", "silent"));
-console.log(isAnagrsam("hello", "world"));
+console.log(isAnagram("listen", "silent"));
+console.log(isAnagram("hello", "world"));
 
 // Alternative approach using sorting
 function isAnagram2(s, t) {
