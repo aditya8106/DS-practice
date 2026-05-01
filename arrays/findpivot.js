@@ -10,4 +10,4 @@ function findPivot(arr) {
     }
     return -1; // No pivot found
 }
-console.log(findPivot([1, 7, 3, 6, 5, 6])); // Output: 3 at index 2
+console.log(findPivot([1, 7, 3, 6, 5, 6])); // Output: 3 at index 2s

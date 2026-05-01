@@ -45,6 +45,7 @@ function continuousSubarrSum(arr, k) {
             if (i - map.get(rem) >=2) { // Check if the length of the subarray is at least 2
             //i-map.get(rem) gives the length of the subarray between the previous occurrence of this remainder and the current index. If this length is at least 2, it means we have found a good subarray that sums to a multiple of k, and we can return true.
             // If the same remainder has been seen before, it means that the sum of the elements between the previous index and the current index is a multiple of k. We also need to check if the length of this subarray is at least 2, which is a requirement for it to be considered a good subarray. If both conditions are satisfied, we can
+            //it just check if the same remainder has been seen before, it means that the sum of the elements between the previous index and the current index is a multiple of k. We also need to check if the length of this subarray is at least 2, which is a requirement for it to be considered a good subarray. If both conditions are satisfied, we can return true.
                 return true;
             }
         } else {
