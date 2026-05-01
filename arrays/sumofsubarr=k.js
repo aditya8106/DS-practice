@@ -1,4 +1,13 @@
-// sum of subarray equals k
+// sum of subarrays equals to k
+// Given an array of integers and an integer k, find the total number of continuous subarrays whose sum equals to k.
+// Example 1:
+// Input: nums = [1,1,1], k = 2
+// Output: 2
+// Explanation: The subarrays [1, 1] and [1, 1] sum to 2.
+// Example 2:
+// Input: nums = [1,2,3], k = 3
+// Output: 2
+// Explanation: The subarrays [1, 2] and [3] sum to 3.
 function sumOfSubarrEqualsK(arr, k) {
     let map = new Map();
     map.set(0, 1); // Initialize the map with a prefix sum of 0 occurring once
@@ -6,7 +15,9 @@ function sumOfSubarrEqualsK(arr, k) {
     let count = 0;
     for (let i = 0; i < arr.length; i++) {
         prefixSum += arr[i]; // Update the prefix sum with the current element
-        if (map.has(prefixSum - k)) { // Check if there is a prefix sum that, when subtracted from the current prefix sum, equals k (i.e., if there is a previous prefix sum that would make the current subarray sum to k)
+        if (map.has(prefixSum - k)) { // Check if there is a prefix sum that, when subtracted from the current prefix sum, equals k (i.e., if there is a previous prefix sum that would make the current subarray sum to k)//prefixSum - k is the prefix sum that we need to find in the map to determine if there is a subarray that sums to k ending at the current index why subtract k? because we want to find a previous prefix sum such that when we subtract it from the current prefix sum, we get k, which means the subarray between that previous prefix sum and the current index sums to k    
+            // prefixsun - current prefix sum = k => current prefix sum - k = previous prefix sum
+            // If such a prefix sum exists, it means we have found a subarray that sums to k, and we can add the count of that prefix sum to our total count
             count += map.get(prefixSum - k); // If such a prefix sum exists, add its count to the total count
         }
         map.set(prefixSum, (map.get(prefixSum) || 0) + 1); // Update the map with the current prefix sum and its count
