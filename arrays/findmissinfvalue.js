@@ -28,4 +28,18 @@ console.log(findMissingValue2([0, 1, 2, 4, 5])); // Output: 3
 console.log(findMissingValue2([0, 1, 3, 4, 5])); // Output: 2
 console.log(findMissingValue2([1, 2, 3, 4, 5])); // Output: 0    
 console.log(findMissingValue2([0, 1, 2, 3, 4])); // Output: 5
+//approach 3
+function findMissingValue3(arr) {
+    let n = arr.length + 1;
+    let total = n *(n-1)/2;
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+    }
+    return total - sum ;
+}
 
+console.log(findMissingValue3([0, 1, 2, 4, 5])); // Output: 3
+console.log(findMissingValue3([0, 1, 3, 4, 5])); // Output: 2
+///to find multiple missing values in an array
+f
