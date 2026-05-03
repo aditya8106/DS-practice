@@ -50,3 +50,24 @@ console.log(sumOfSubarrEqualsKBruteForce([1, 1, 1], 2)); // Output: 2
 console.log(sumOfSubarrEqualsKBruteForce([1, 2, 3], 3));
 // Output: 2 (subarrays [1, 2] and [3] sum to 3)
 console.log(sumOfSubarrEqualsKBruteForce([1, -1, 0], 0)); // Output: 3 (subarrays [1, -1], [-1, 0], and [1, -1, 0] sum to 0)
+
+
+///two pointers approach    not optimal as it will not work for negative numbers
+function sumOfSubarrEqualsKTwoPointers(arr, k) {
+    let count = 0;  
+    let left = 0; // Initialize the left pointer
+    let sum = 0; // Initialize the sum for the current window
+    for (let right = 0; right < arr.length; right++) { // Iterate with the right pointer
+
+        sum += arr[right]; // Update the sum with the current element
+        while (sum > k && left <= right) { // If the sum exceeds k, move the left pointer to reduce the sum
+            sum -= arr[left]; // Update the sum by removing the element at the left pointer
+            left++; // Move the left pointer to the right
+        }   
+        if (sum === k) { // Check if the current sum equals k
+            count++; // If it does, increment the count
+        }
+    }
+    return count; // Return the total count of subarrays that sum to k
+}
+
