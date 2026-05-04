@@ -49,10 +49,11 @@ function optimal(heights){
     let left =0
     let right=n-1;
     let maxwater = 0
-    while(left<right){
-        let sum = Math.min(heights[left],heights[right])*(right-left);
-        maxwater=Math.max(maxwater,sum);
-        if(heights[left]<heights[right]){
+    while(left<right){ //no points cross each other
+        let sum = Math.min(heights[left],heights[right])*(right-left);///area of water width=right-left ,,heights[left],heights[right] = shortest wall of container because the watter will over laped after that small wall
+
+        maxwater=Math.max(maxwater,sum);// take heightest value of two diff points
+        if(heights[left]<heights[right]){ // if left element causing the lowest score that will shift left else right will shift
             left++;
         }else{
             right++;
