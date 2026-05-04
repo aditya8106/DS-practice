@@ -31,3 +31,40 @@ function brute(nums){
    
 }
 console.log(brute([-1,0,1,2,-1,-4]));
+
+
+/// optimal two pointers 
+
+function optimal(nums){
+    let n = nums.length
+    
+    let res =[]
+    nums.sort((a,b)=>a-b)
+    for(let i =0;i<n;i++){
+        if(i>0&&nums[i] == nums[i-1]) continue;
+        let left = i+1
+        let right = n-1
+        while(left<right){
+            let trip = [nums[i]+nums[left]+nums[right]]
+            if(trip <0){
+                left++
+            }else if(trip>0){
+                right--
+            }else{
+                res.push([nums[i],nums[left],nums[right]]);
+                left++;
+                right--;
+                while(left<right&&nums[left]==nums[i-1]){
+                    left++;
+                }
+                while(left<right&&nums[right] == nums[right+1]){
+                    right--;
+                }
+            }
+        
+        }
+    }
+    return res;
+}
+
+console.log(optimal([-1,0,1,2,-1,-4]));
