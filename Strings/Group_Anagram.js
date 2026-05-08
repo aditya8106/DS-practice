@@ -31,13 +31,13 @@ function brute(strs){
     let map = new Map();
     let str1 = ''
     for(let str of strs){
-        str1 = str.split('').sort().join()
-        if(!map.has(str1)){
-            map.set(str1,[])
+        str1 = str.split('').sort().join()  // means "eat" => "aet"  and "tea" => "aet"  so they are anagrams
+        if(!map.has(str1)){  //means if we have not seen this anagram before then we will create a new entry in the map with the sorted string as the key and an empty array as the value
+            map.set(str1,[]) // means we will push the original string into the array corresponding to the sorted string key in the map
         }
-        map.get(str1).push(str)
+        map.get(str1).push(str)// means we will push the original string into the array corresponding to the sorted string key in the map
     }
-  return Array.from(map.values());
+  return Array.from(map.values());// means we will return an array of the values in the map, which are the arrays of anagrams
 }
 
 console.log(brute(["eat","tea","tan","ate","nat","bat"]));
