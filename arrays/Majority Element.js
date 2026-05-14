@@ -44,4 +44,10 @@ console.log(brute([5,5,1,1,1,5,5])); // out put  5
     }
 
     console.log(majorityElement([5,5,1,1,1,5,5])); // output 5
+     /* explanation:
+1. We initialize a count variable to keep track of the count of the current candidate and a candidate variable to store the current majority element.
+2. We iterate through each number in the input array nums.
+3. If the count is zero, we set the current number as the new candidate.
+4. We then update the count: if the current number is the same as the candidate, we increment the count; otherwise, we decrement it.
+5. By the end of the loop, the candidate variable will hold the majority element, which we return. */   
 
