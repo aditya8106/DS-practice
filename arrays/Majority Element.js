@@ -32,13 +32,13 @@ console.log(brute([5,5,1,1,1,5,5])); // out put  5
 
 // optimal
     function majorityElement(nums) {
-        let count = 0;
-        let candidate = null;   
+        let count = 0;  // means count of candidate
+        let candidate = null; // means majority element but how ? we will find it in loop
         for (let num of nums) {
-            if (count === 0) {
-                candidate = num;
+            if (count === 0) { // if count is zero then we will set candidate to current number
+                candidate = num;// meaning candidate is 5 but how we will find it ? we will find it in loop and count will be 1 now and next time when we see 5 again then count will be 2 and when we see 1 then count will be 1 and when we see 1 again then count will be 0 and when we see 1 again then candidate will be 1 but when we see 5 again then count will be -1 and when we see 5 again then count will be 0 and candidate will be 5 again so at the end candidate will be 5 which is the majority element
             }   
-            count += (num === candidate) ? 1 : -1;
+            count += (num === candidate) ? 1 : -1; //  if num is same as candidate then we will increment count otherwise we will decrement count
         }
         return candidate;
     }
