@@ -34,7 +34,7 @@ Window position            Max
     return res;
  }
 
- console.log(brute([1,2,1,0,4,2,6],3));
+ console.log(brute([1,2,1,0,4,2,6],3));  // output [2,2,4,4,6]
 
 
 

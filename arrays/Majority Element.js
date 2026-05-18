@@ -50,4 +50,3 @@ console.log(brute([5,5,1,1,1,5,5])); // out put  5
 3. If the count is zero, we set the current number as the new candidate.
 4. We then update the count: if the current number is the same as the candidate, we increment the count; otherwise, we decrement it.
 5. By the end of the loop, the candidate variable will hold the majority element, which we return. */   
-
