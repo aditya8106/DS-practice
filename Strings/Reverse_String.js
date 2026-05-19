@@ -29,4 +29,4 @@ function Revese(s){
     return s;
 }
 
-console.log(Revese(["h","e","l","l","o"]));
+console.log(Revese(["h","e","l","l","o"])); // output :- ["o","l","l","e","h"]

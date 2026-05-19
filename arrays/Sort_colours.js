@@ -20,7 +20,10 @@ Example 2:
 
 Input: nums = [2,1,0]
 
-Output: [0,1,2]   */
+Output: [0,1,2]
+ 
+this problem the arrayy elements only in between 0 to 2 denoting colours
+*/
 
 
  // brute force  

@@ -40,7 +40,10 @@ console.log(brute([1,2,1,2,1,2,3,1,3,2],2));
 
 
 /// optimal -Solution
-
+/// we will use bucket sort to sort the elements based on their frequency and then we will return the top k elements from the bucket
+/* bucket sort works ass 
+      
+*/
 
 function Optimal(nums ,k){
     let freq ={}
@@ -50,16 +53,16 @@ function Optimal(nums ,k){
         freq[num] = (freq[num]||0)+1;
     }
     for(let key in freq){
-        let f = freq[key]
-          if (!bucket[f]) {
-            bucket[f] = [];
+        let f = freq[key] //  means frequency of the element  like occurence of key in freq object 
+        if (!bucket[f]) { // if bucket for this frequency doesn't exist
+            bucket[f] = []; // create a new bucket for this frequency
         }
-        bucket[f].push(Number(key));
+        bucket[f].push(Number(key));//  push the element to its frequency bucket
     }
-    for(let pos=bucket.length-1;pos>=0;pos--){
-        for(let num of bucket[pos]){
-            res.push(num);
-            if(res.length === k) return res;
+    for(let pos=bucket.length-1;pos>=0;pos--){ // iterate from the highest frequency to the lowest
+        for(let num of bucket[pos]){ // means iterate through all elements in the current frequency bucket
+            res.push(num); // push the element to the result array
+            if(res.length === k) return res; // return the result array if it has k elements
         }
     }
 }
