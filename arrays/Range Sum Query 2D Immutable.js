@@ -66,13 +66,13 @@ var NumMatrix = function(matrix) {
 
     
 NumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {
-    let total = this.prefix[row2][col2]
-        let top = row1>0?this.prefix[row1-1][col2]:0;
-        let left = col1>0?this.prefix[row2][col1-1]:0;
-        let lefttop = row1>0&&col1>0?this.prefix[row1-1][col1-1]:0;
-        return  total-top-left+lefttop;
+    let total = this.prefix[row2][col2] // get the prefix sum from the bottom-right cell of the rectangle defined by (row1, col1) and (row2, col2)
+        let top = row1>0?this.prefix[row1-1][col2]:0;// get the prefix sum from the top cell of the rectangle, if it exists
+        let left = col1>0?this.prefix[row2][col1-1]:0;// get the prefix sum from the left cell of the rectangle, if it exists
+        let lefttop = row1>0&&col1>0?this.prefix[row1-1][col1-1]:0;// get the prefix sum from the top-left cell of the rectangle, if it exists
+        return  total-top-left+lefttop;// calculate the sum of the elements in the rectangle defined by (row1, col1) and (row2, col2) using the prefix sums
 }
 
-let obj = new NumMatrix(matrix);
+let obj = new NumMatrix(matrix);// create an instance of the NumMatrix class with the input matrix
 
-console.log(obj.sumRegion(2,1,4,3));
+console.log(obj.sumRegion(2,1,4,3));// return 8 (i.e sum of the red rectangle)
