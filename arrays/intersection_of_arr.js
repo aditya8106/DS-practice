@@ -11,5 +11,5 @@ function intersectionOfArrays(arr1, arr2) {
     }
     return [...set];
 }
-console.log(intersectionOfArrays([1, 2, 3, 4], [3, 4, 5, 6]));
+console.log(intersectionOfArrays([1, 2, 3, 4], [3, 4, 5, 6])); // out 
 console.log(intersectionOfArrays([1, 2, 3], [4, 5, 6]));
