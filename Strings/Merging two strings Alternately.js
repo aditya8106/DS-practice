@@ -29,3 +29,6 @@ var mergeAlternately = function(word1, word2) {
     }   
     return result;
 }
+
+console.log(mergeAlternately("abc", "xyz")); // "axbycz"
+console.log(mergeAlternately("ab", "abbxxc")); // "aabbbxxc"
