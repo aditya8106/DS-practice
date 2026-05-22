@@ -56,6 +56,31 @@ var maxSum = function(arr) {
     for (let i = 0; i < rows - 2; i++) {  
         for (let j = 0; j < cols - 2; j++) {
             let sum = prefix[i + 2][j + 2] - prefix[i + 2][j - 1] - prefix[i - 1][j + 2] + prefix[i - 1][j - 1] - arr[i + 1][j] - arr[i + 1][j + 2];
+            /*
+             example:
+                1 2 3 4
+                5 6 7 8
+                9 10 11 12
+                13 14 15 16
+                prefix sum matrix would be:
+                1 3 6 10
+                6 14 27 45
+                15 33 60 100
+                28 60 105 160
+            the hourglass starting at (0, 0) would be:
+                1 2 3
+                     6
+                9 10 11
+                here prefix[i+2][j+2] is value at (2, 2) which is 60 this is last cell of the hourglass 
+                prefix[i+2][j-1] is value at (2, -1) which is 0 (out of bounds) on the left side of the hourglass
+                prefix[i-1][j+2] is value at (-1, 2) which is 0 (out of bounds) on the top side of the hourglass
+                prefix[i-1][j-1] is value at (-1, -1) which is 0 (out of bounds) on the top left corner of the hourglass
+                arr[i+1][j] is value at (1, 0) which is 5
+                arr[i+1][j+2] is value at (1, 2) which is 7
+                so the sum of the hourglass would be:
+                60 - 0 - 0 + 0 - 5 - 7 = 60 - 12 = 48
+
+              */
             // the sum of the hourglass can be calculated using the prefix sums by taking the sum of the bottom right corner of the hourglass and subtracting the sums of the areas that are not part of the hourglass, and then adding back the value of the middle cell that was subtracted twice
             max = Math.max(max, sum);
         }   
