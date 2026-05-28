@@ -52,7 +52,7 @@ function reverse(arr, start, end) {
         end--; // means we will move the end pointer to the left
     }
 }
-function  rotateL(arr , d){
+function  rotateL(arr , d){// d is the number of positions to rotate the array to the left
     let n = arr.length;
     d = d % n;
     reverse(arr, 0, d - 1); // means we will reverse the first d elements of the array
@@ -67,11 +67,11 @@ function rotateRight(arr, d) {
     let n = arr.length;
     d = d % n;
     for(let i = 0; i < d; i++) {
-        let temp = arr[n - 1];
+        let temp = arr[n - 1]; // means we will store the last element of the array in a temporary variable
         for(let j = n - 1; j > 0; j--) {
-            arr[j] = arr[j - 1];
+            arr[j] = arr[j - 1]; // means we will shift the element at index j-1 to index j
         }
-        arr[0] = temp;
+        arr[0] = temp; // means we will place the last element of the array, which is stored in the temporary variable, at the beginning of the array
     }
     return arr;
 }
