@@ -54,10 +54,10 @@ function optimal(nums){
                 res.push([nums[i],nums[left],nums[right]]);
                 left++;
                 right--;
-                while(left<right&&nums[left]==nums[i-1]){
+                while(left<right&&nums[left]==nums[left-1]){//it skips duplicates  // means we have already added this triplet to the result array, so we need to skip the duplicate elements to avoid adding the same triplet again. The condition `nums[left] == nums[left-1]` checks if the current left element is the same as the previous left element. If it is, we increment the left pointer to skip over the duplicate element and move to the next unique element.
                     left++;
                 }
-                while(left<right&&nums[right] == nums[right+1]){
+                while(left<right&&nums[right] == nums[right+1]){//i t cheks  // means we have already added this triplet to the result array, so we need to skip the duplicate elements to avoid adding the same triplet again. The condition `nums[right] == nums[right+1]` checks if the current right element is the same as the next right element. If it is, we decrement the right pointer to skip over the duplicate element and move to the previous unique element.
                     right--;
                 }
             }
