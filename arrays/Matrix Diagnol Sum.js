@@ -59,4 +59,4 @@ function diagonalSum(mat){
     }
     return sum
 }
-console.log(diagonalSum([[1,2,3],[4,5,6],[7,8,9]])); // output 25
+console.log(diagonalSum([[1,2,3],[4,5,6],[7,8,9]])); // output 25  
