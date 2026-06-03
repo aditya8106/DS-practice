@@ -24,67 +24,140 @@ Output: [[-1,1,1,1]]  */
 
 
   // brute force
-function brute(nums,target){
-    let set = new Set()
-    let res = []
+function brute(nums, target) {
+    let set = new Set();          // Store unique quadruplets
+    let res = [];                 // Final answer array
     let n = nums.length;
-    for(let i=0;i<n;i++){
-        let sum =0
-        for (let j=i+1;j<n;j++){
-            for(let k=j+1;k<n;k++){
-                for(let l=k+1;l<n;l++){
-                    sum=nums[i]+nums[j]+nums[k]+nums[l]
-                    if(sum == target){
-                        let trip=[nums[i],nums[j],nums[k],nums[l]].sort((a,b)=>a-b)
-                        set.add(JSON.stringify(trip));
+
+    // Pick first element
+    for (let i = 0; i < n; i++) {
+
+        // Pick second element
+        for (let j = i + 1; j < n; j++) {
+
+            // Pick third element
+            for (let k = j + 1; k < n; k++) {
+
+                // Pick fourth element
+                for (let l = k + 1; l < n; l++) {
+
+                    // Calculate sum of four numbers
+                    let sum = nums[i] + nums[j] + nums[k] + nums[l];
+
+                    // If sum equals target
+                    if (sum === target) {
+
+                        // Sort to avoid different orders
+                        // [3,-3,1,2] and [-3,1,2,3]
+                        // become the same
+                        let quad = [
+                            nums[i],
+                            nums[j],
+                            nums[k],
+                            nums[l]
+                        ].sort((a, b) => a - b);
+
+                        // Convert array to string
+                        // because Set compares references
+                        set.add(JSON.stringify(quad));
                     }
                 }
             }
         }
     }
-        for(let item of set){
-            res.push(JSON.parse(item))
-         }
-    return res
-}
 
-console.log(brute([3,2,3,-3,1,0],3));
+    // Convert strings back to arrays
+    for (let item of set) {
+        res.push(JSON.parse(item));
+    }
+
+    return res;
+}
 
 
 // optimal two pointers
 
 var fourSum = function(nums, target) {
-     let n = nums.length
-    let res = []
-    nums.sort((a,b)=> a-b)
-    for(let i=0 ;i<n-3;i++){
-        if(i>0 && nums[i] == nums[i-1]) continue;
-        for(let j=i+1;j<n-2;j++){
-            if(j > i+1&& nums[j] == nums[j-1]) continue;
-            let left =j+1
-            let right = n-1
-            while(left < right){
-                let sum = nums[i]+nums[j]+nums[left]+nums[right];
-                if(sum < target){
+
+    let n = nums.length;
+    let res = [];
+
+    // Sort array
+    // Required for two pointers
+    nums.sort((a, b) => a - b);
+
+    // First number
+    for (let i = 0; i < n - 3; i++) {
+
+        // Skip duplicate first numbers
+        if (i > 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+
+        // Second number
+        for (let j = i + 1; j < n - 2; j++) {
+
+            // Skip duplicate second numbers
+            if (j > i + 1 && nums[j] === nums[j - 1]) {
+                continue;
+            }
+
+            // Two pointers for remaining two numbers
+            let left = j + 1;
+            let right = n - 1;
+
+            while (left < right) {
+
+                // Current 4-number sum
+                let sum =
+                    nums[i] +
+                    nums[j] +
+                    nums[left] +
+                    nums[right];
+
+                // Need larger sum
+                if (sum < target) {
+
                     left++;
-                }else if(sum > target ){
-                    right --
-                }else{
-                    res.push([nums[i],nums[j],nums[left],nums[right]])
-                    left++
-                    right--
-                    while(left < right && nums[left] == nums[left -1 ]){
-                        left++
+
+                // Need smaller sum
+                } else if (sum > target) {
+
+                    right--;
+
+                // Found valid quadruplet
+                } else {
+
+                    res.push([
+                        nums[i],
+                        nums[j],
+                        nums[left],
+                        nums[right]
+                    ]);
+
+                    // Move pointers
+                    left++;
+                    right--;
+
+                    // Skip duplicate left values
+                    while (
+                        left < right &&
+                        nums[left] === nums[left - 1]
+                    ) {
+                        left++;
                     }
-                    while(left < right && nums[right] == nums[right +1]){
-                        right--
+
+                    // Skip duplicate right values
+                    while (
+                        left < right &&
+                        nums[right] === nums[right + 1]
+                    ) {
+                        right--;
                     }
                 }
             }
         }
     }
+
     return res;
-
 };
-
-console.log(fourSum([3,2,3,-3,1,0],3));  
