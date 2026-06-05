@@ -45,7 +45,6 @@ console.log(brute([1,8,6,2,5,4,8,3,7]));///output is 49 because  The above verti
 
 function optimal(heights){
     let n =heights.length;
-    let res = 0;
     let left =0
     let right=n-1;
     let maxwater = 0
@@ -56,10 +55,10 @@ function optimal(heights){
         if(heights[left]<heights[right]){ // if left element causing the lowest score that will shift left else right will shift
             left++;
         }else{
-            right++;
+            right--;
         }
     }
     return maxwater;
 }
-console.log(optimal([1,8,6,2,5,4,8,3,7]))
+console.log(optimal([1,8,6,2,5,4,8,3,7]))  // output is 49 because  The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
 
