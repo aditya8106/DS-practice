@@ -96,3 +96,49 @@ asteroids[i] != 0 */
 }
 
 console.log(AsteroidCollision([2, 4, -4, -1]));
+
+// brute force without stack 
+
+function AsteroidCollision2(asteroids) {
+
+    while (true) {
+
+        let found = false;
+
+        for (let i = 0; i < asteroids.length - 1; i++) {
+
+            // collision possible
+            if (asteroids[i] > 0 && asteroids[i + 1] < 0) {
+
+                found = true;
+
+                let left = Math.abs(asteroids[i]);
+                let right = Math.abs(asteroids[i + 1]);
+
+                if (left > right) {
+
+                    // destroy right asteroid
+                    asteroids.splice(i + 1, 1);
+
+                } else if (left < right) {
+
+                    // destroy left asteroid
+                    asteroids.splice(i, 1);
+
+                } else {
+
+                    // both destroyed
+                    asteroids.splice(i, 2);
+                }
+
+                break;
+            }
+        }
+
+        if (!found) {
+            return asteroids;
+        }
+    }
+}
+
+console.log(AsteroidCollision2([2, 4, -4, -1]))
