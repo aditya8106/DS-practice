@@ -39,53 +39,277 @@ Constraints:
 Node values are not guaranteed to be unique.
 random is null or is pointing to some node in the linked list.*/
 
+/**
+ * Optimal Solution
+ *
+ * Time  : O(n)
+ * Space : O(1)
+ *
+ * Idea:
+ * Step 1 : Insert copied nodes inside original list.
+ * Step 2 : Connect random pointers.
+ * Step 3 : Separate the two lists.
+ */
+
 function copyRandomList(head) {
-        if(!head) return null;
-        let current = head
-        let map = new Map()
-        while(current){
-            let copy = new Node(current.val)
-            map.set(current , copy)
-            current = current.next
-        }
-        current = head
-        while(current){
-            const copy = map.get(current)
-            copy.next = map.get(current.next)||null;
-            copy.random = map.get(current.random)||null
-            current = current.next
-        }
-        return map.get(head)
+
+    // Edge Case
+    if (!head) return null;
+
+    // ====================================================
+    // STEP 1
+    // Insert copied node after every original node.
+    //
+    // Before:
+    // A -> B -> C
+    //
+    // After:
+    // A -> A' -> B -> B' -> C -> C'
+    // ====================================================
+
+    let current = head;
+
+    while (current) {
+
+        // Create copied node
+        const copy = new Node(current.val);
+
+        // Save next original node
+        const next = current.next;
+
+        // Insert copied node
+        current.next = copy;
+        copy.next = next;
+
+        // Move to next original node
+        current = next;
     }
 
+    // ====================================================
+    // STEP 2
+    // Connect random pointers.
+    //
+    // Since every copied node is immediately
+    // after its original node,
+    //
+    // Copy of any node = node.next
+    //
+    // Example:
+    //
+    // A.random -> C
+    //
+    // Then
+    //
+    // A'.random -> C'
+    //
+    // C' = C.next
+    // ====================================================
 
+    current = head;
 
-    /// function Optimal with out Map
+    while (current) {
 
-    function copyRandomList(head) {
-        if(!head) return null;
-        let current = head
-        while(current){
-            let copy = new Node(current.val)
-            let next = current.next
-            current.next = copy
-            copy.next = next
-            current = next
-        }
-        current = head
-        while(current){
-            const copy = current.next
-           copy.random = current.random ? current.random.next : null;
-           current = copy.next
+        // Copied node
+        const copy = current.next;
 
-        }
-        current = head
-        let copyHead = head.next
-        while(current){
-            const copy = current.next
-            current.next = copy.next
-            copy.next = copy.next ? copy.next.next : null
-            current = current.next
-        }
-        return copyHead
+        // Connect random pointer
+        copy.random = current.random
+            ? current.random.next
+            : null;
+
+        // Skip copied node
+        // Move to next original node
+        current = copy.next;
     }
+
+    // ====================================================
+    // STEP 3
+    // Separate original list and copied list.
+    //
+    // Before:
+    //
+    // A -> A' -> B -> B' -> C -> C'
+    //
+    // After:
+    //
+    // Original:
+    // A -> B -> C
+    //
+    // Copied:
+    // A' -> B' -> C'
+    // ====================================================
+
+    current = head;
+
+    // Head of copied list
+    const copyHead = head.next;
+
+    while (current) {
+
+        // Current copied node
+        const copy = current.next;
+
+        // Restore original list
+        //
+        // A -> A' -> B
+        //
+        // becomes
+        //
+        // A -> B
+        current.next = copy.next;
+
+        // Connect copied list
+        //
+        // A' -> B
+        //
+        // becomes
+        //
+        // A' -> B'
+        copy.next = copy.next
+            ? copy.next.next
+            : null;
+
+        // Move to next original node
+        current = current.next;
+    }
+
+    // Return copied list
+    return copyHead;
+}
+   /**
+ * Optimal Solution
+ *
+ * Time  : O(n)
+ * Space : O(1)
+ *
+ * Idea:
+ * Step 1 : Insert copied nodes inside original list.
+ * Step 2 : Connect random pointers.
+ * Step 3 : Separate the two lists.
+ */
+
+function copyRandomList(head) {
+
+    // Edge Case
+    if (!head) return null;
+
+    // ====================================================
+    // STEP 1
+    // Insert copied node after every original node.
+    //
+    // Before:
+    // A -> B -> C
+    //
+    // After:
+    // A -> A' -> B -> B' -> C -> C'
+    // ====================================================
+
+    let current = head;
+
+    while (current) {
+
+        // Create copied node
+        const copy = new Node(current.val);
+
+        // Save next original node
+        const next = current.next;
+
+        // Insert copied node
+        current.next = copy;
+        copy.next = next;
+
+        // Move to next original node
+        current = next;
+    }
+
+    // ====================================================
+    // STEP 2
+    // Connect random pointers.
+    //
+    // Since every copied node is immediately
+    // after its original node,
+    //
+    // Copy of any node = node.next
+    //
+    // Example:
+    //
+    // A.random -> C
+    //
+    // Then
+    //
+    // A'.random -> C'
+    //
+    // C' = C.next
+    // ====================================================
+
+    current = head;
+
+    while (current) {
+
+        // Copied node
+        const copy = current.next;
+
+        // Connect random pointer
+        copy.random = current.random
+            ? current.random.next
+            : null;
+
+        // Skip copied node
+        // Move to next original node
+        current = copy.next;
+    }
+
+    // ====================================================
+    // STEP 3
+    // Separate original list and copied list.
+    //
+    // Before:
+    //
+    // A -> A' -> B -> B' -> C -> C'
+    //
+    // After:
+    //
+    // Original:
+    // A -> B -> C
+    //
+    // Copied:
+    // A' -> B' -> C'
+    // ====================================================
+
+    current = head;
+
+    // Head of copied list
+    const copyHead = head.next;
+
+    while (current) {
+
+        // Current copied node
+        const copy = current.next;
+
+        // Restore original list
+        //
+        // A -> A' -> B
+        //
+        // becomes
+        //
+        // A -> B
+        current.next = copy.next;
+
+        // Connect copied list
+        //
+        // A' -> B
+        //
+        // becomes
+        //
+        // A' -> B'
+        copy.next = copy.next
+            ? copy.next.next
+            : null;
+
+        // Move to next original node
+        current = current.next;
+    }
+
+    // Return copied list
+    return copyHead;
+}
