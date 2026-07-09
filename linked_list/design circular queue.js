@@ -153,3 +153,117 @@ class MyCircularQueue {
         return this.size === this.cap;
     }
 }
+
+
+
+/// linked list approach  
+
+// Node class
+class Node {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+class MyCircularQueue {
+    /**
+     * @param {number} k
+     */
+    constructor(k) {
+        // Maximum capacity
+        this.capacity = k;
+
+        // Current number of elements
+        this.size = 0;
+
+        // Front of queue
+        this.head = null;
+
+        // Rear of queue
+        this.tail = null;
+    }
+
+    /**
+     * @param {number} value
+     * @return {boolean}
+     */
+    enQueue(value) {
+        // Queue is full
+        if (this.size === this.capacity) {
+            return false;
+        }
+
+        let newNode = new Node(value);
+
+        // If queue is empty
+        if (this.head === null) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            // Insert at tail
+            this.tail.next = newNode;
+            this.tail = newNode;
+        }
+
+        this.size++;
+        return true;
+    }
+
+    /**
+     * @return {boolean}
+     */
+    deQueue() {
+        // Queue is empty
+        if (this.size === 0) {
+            return false;
+        }
+
+        // Remove front node
+        this.head = this.head.next;
+        this.size--;
+
+        // If queue becomes empty
+        if (this.size === 0) {
+            this.tail = null;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return {number}
+     */
+    Front() {
+        if (this.size === 0) {
+            return -1;
+        }
+
+        return this.head.val;
+    }
+
+    /**
+     * @return {number}
+     */
+    Rear() {
+        if (this.size === 0) {
+            return -1;
+        }
+
+        return this.tail.val;
+    }
+
+    /**
+     * @return {boolean}
+     */
+    isEmpty() {
+        return this.size === 0;
+    }
+
+    /**
+     * @return {boolean}
+     */
+    isFull() {
+        return this.size === this.capacity;
+    }
+}
