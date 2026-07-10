@@ -28,45 +28,111 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
  */  
 
 
-//brute force O(N2) 
+// ======================================================
+// Minimum Size Subarray Sum
+// Problem:
+// Given an array of POSITIVE integers and a target,
+// return the minimum length of a contiguous subarray
+// whose sum is greater than or equal to the target.
+//
+// If no such subarray exists, return 0.
+// ======================================================
 
-function MinSizeSubArr( nums , target ){
-    let minlen = Infinity
-    for(let i = 0 ; i< nums.length;i++){
-        let sum = 0
-        for(let j= i;j< nums.length;j++){
-            sum+=nums[j]
-            if(sum  >= target){
-                minlen = Math.min(minlen , j-i+1)
+
+
+// ======================================================
+// Approach 1 : Brute Force
+// Time Complexity : O(n²)
+// Space Complexity : O(1)
+// ======================================================
+
+function MinSizeSubArr(nums, target) {
+
+    // Stores the minimum length found so far.
+    // Infinity means "no valid subarray found yet."
+    let minLen = Infinity;
+
+    // Choose every element as the starting point.
+    for (let i = 0; i < nums.length; i++) {
+
+        // Running sum for the current starting index.
+        let sum = 0;
+
+        // Extend the subarray one element at a time.
+        for (let j = i; j < nums.length; j++) {
+
+            // Add current element.
+            sum += nums[j];
+
+            // If the current subarray satisfies the condition...
+            if (sum >= target) {
+
+                // Update the minimum length.
+                minLen = Math.min(minLen, j - i + 1);
+
+                // Since all numbers are POSITIVE,
+                // extending this subarray will only make it longer.
+                // So stop checking this starting index.
                 break;
             }
         }
     }
-    if(minlen === Infinity) {
-        return  0}
-    else{return  minlen}
+
+    // If no valid subarray was found.
+    if (minLen === Infinity) {
+        return 0;
+    }
+
+    return minLen;
 }
 
-console.log(MinSizeSubArr([2,1,5,1,5,3], 10));
+console.log(MinSizeSubArr([2, 1, 5, 1, 5, 3], 10));
 
 
-// optimal using sliding window 
 
-function MinSizeSubArr2(nums , target){
-    let  Minlen = Infinity
-    let left = 0 
-    let sum = 0
-    for(let i = 0;i< nums.length;i++){
-        sum+=nums[i]
-        while(sum >= target){
-        Minlen = Math.min(Minlen , i - left + 1)
-        sum-=nums[left]
-        left++
+// ======================================================
+// Approach 2 : Sliding Window (Optimal)
+// Time Complexity : O(n)
+// Space Complexity : O(1)
+// ======================================================
+
+function MinSizeSubArr2(nums, target) {
+
+    // Minimum length found.
+    let minLen = Infinity;
+
+    // Left pointer of the window.
+    let left = 0;
+
+    // Current window sum.
+    let sum = 0;
+
+    // Right pointer expands the window.
+    for (let right = 0; right < nums.length; right++) {
+
+        // Include the current element.
+        sum += nums[right];
+
+        // While the window is valid...
+        while (sum >= target) {
+
+            // Update the smallest window length.
+            minLen = Math.min(minLen, right - left + 1);
+
+            // Remove the leftmost element.
+            sum -= nums[left];
+
+            // Shrink the window.
+            left++;
         }
     }
-     if(Minlen === Infinity) {
-        return  0}
-    else{return  Minlen}
 
+    // No valid subarray found.
+    if (minLen === Infinity) {
+        return 0;
+    }
+
+    return minLen;
 }
-console.log(MinSizeSubArr2([2,1,5,1,5,3], 10));
+
+console.log(MinSizeSubArr2([2, 1, 5, 1, 5, 3], 10));
