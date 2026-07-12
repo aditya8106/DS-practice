@@ -60,3 +60,50 @@ var splitArray = function(nums, k) {
   }return left
 
 };
+
+// brute fore
+
+class Solution {
+    splitArray(nums, k) {
+
+        function dfs(index, remaining) {
+
+            // Only one subarray left
+            if (remaining === 1) {
+                let sum = 0;
+
+                for (let i = index; i < nums.length; i++) {
+                    sum += nums[i];
+                }
+
+                return sum;
+            }
+
+            let answer = Infinity;
+            let currentSum = 0;
+
+            // Try every possible ending position
+            for (
+                let i = index;
+                i <= nums.length - remaining;
+                i++
+            ) {
+
+                currentSum += nums[i];
+
+                let nextLargest =
+                    dfs(i + 1, remaining - 1);
+
+                let largest =
+                    Math.max(currentSum, nextLargest);
+
+                answer =
+                    Math.min(answer, largest);
+            }
+
+            return answer;
+        }
+
+        return dfs(0, k);
+    }
+}
