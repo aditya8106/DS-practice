@@ -105,3 +105,62 @@ class Solution {
         return res.sort((a, b) => a - b);
     }
 }
+
+
+//optimal solution using binary search and slide window
+
+class Solution {
+    /**
+     * @param {number[]} arr
+     * @param {number} k
+     * @param {number} x
+     * @return {number[]}
+     */
+    findClosestElements(arr, k, x) {
+
+        // We are binary searching for the starting index
+        // of the window having k closest elements.
+        let l = 0;
+        let r = arr.length - k;
+
+        while (l < r) {
+
+            // Middle starting index
+            let mid = Math.floor((l + r) / 2);
+
+            /*
+                Window 1 starts at mid
+                Window 2 starts at mid + 1
+
+                Window 1:
+                [arr[mid], ............, arr[mid + k - 1]]
+
+                Window 2:
+                [arr[mid + 1], ........., arr[mid + k]]
+
+                Both windows have (k-1) common elements.
+
+                The only difference is:
+
+                arr[mid]      -> leaves the window
+                arr[mid + k]  -> enters the window
+
+                Therefore, we only compare these two elements.
+            */
+
+            // If the entering element is closer to x,
+            // move to the right window.
+            if (x - arr[mid] > arr[mid + k] - x) {
+                l = mid + 1;
+            }
+            // Otherwise keep searching on the left side
+            // (also handles tie because smaller element wins).
+            else {
+                r = mid;
+            }
+        }
+
+        // l is now the starting index of the best window.
+        return arr.slice(l, l + k);
+    }
+}
