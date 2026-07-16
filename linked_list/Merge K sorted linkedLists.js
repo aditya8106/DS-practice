@@ -228,3 +228,109 @@ var mergeKLists = function(lists) {
 
     return dummy.next;
 };
+
+
+///optimal approach using divide and conquer
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val === undefined ? 0 : val)
+ *     this.next = (next === undefined ? null : next)
+ * }
+ */
+
+// ------------------------------------------------------------
+// Helper Function: Merge Two Sorted Linked Lists
+// Time Complexity : O(n1 + n2)
+// Space Complexity: O(1)
+// ------------------------------------------------------------
+function merge(l1, l2) {
+
+    // Dummy node to simplify merging
+    let dummy = new ListNode(0);
+
+    // Current pointer used to build the merged list
+    let curr = dummy;
+
+    // Compare nodes from both lists until one list becomes empty
+    while (l1 !== null && l2 !== null) {
+
+        // Take the smaller node
+        if (l1.val < l2.val) {
+
+            curr.next = l1;
+            l1 = l1.next;
+
+        } else {
+
+            curr.next = l2;
+            l2 = l2.next;
+        }
+
+        // Move current pointer forward
+        curr = curr.next;
+    }
+
+    // One list is finished.
+    // Attach the remaining nodes from the other list.
+    curr.next = (l1 !== null) ? l1 : l2;
+
+    // Return the merged linked list
+    return dummy.next;
+}
+
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ */
+var mergeKLists = function(lists) {
+
+    // Edge case:
+    // No linked lists are given.
+    if (lists.length === 0) {
+        return null;
+    }
+
+    // Keep merging until only ONE linked list remains.
+    while (lists.length > 1) {
+
+        // Stores merged lists of the current round
+        let mergedLists = [];
+
+        // Merge lists in pairs
+        // i += 2 because we process TWO lists at a time.
+        for (let i = 0; i < lists.length; i += 2) {
+
+            // First list
+            let l1 = lists[i];
+
+            // Second list
+            // If it doesn't exist (odd number of lists),
+            // use null.
+            let l2 = (i + 1 < lists.length)
+                ? lists[i + 1]
+                : null;
+
+            // Merge two sorted lists
+            let merged = merge(l1, l2);
+
+            // Store the merged result
+            mergedLists.push(merged);
+        }
+
+        // Replace the old list array with newly merged lists.
+        //
+        // Example:
+        // Before:
+        // [L1, L2, L3, L4]
+        //
+        // After one round:
+        // [Merged12, Merged34]
+        lists = mergedLists;
+    }
+
+    // Only ONE merged linked list remains.
+    return lists[0];
+};   
+
