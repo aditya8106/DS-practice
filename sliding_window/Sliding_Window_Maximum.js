@@ -75,4 +75,5 @@ Window position            Max
         return result;
     }
 
-    console.log(maxSlidingWindow([1,2,1,0,4,2,6],3));
+    console.log(maxSlidingWindow([1,2,1,0,4,2,6],3));  // output [2,2,4,4,6]
+    // this one is optimal solution using deque - deque is a double ended queue which allows us to add and remove elements from both ends of the queue, we will use deque to store the indexes of the elements in the current window and we will keep removing the indexes of the elements which are smaller than the current element and also we will keep removing the indexes of the elements which are outside the current window, at the end of each window we will add the maximum element in the current window to the result array which is the element at the front of the deque.
