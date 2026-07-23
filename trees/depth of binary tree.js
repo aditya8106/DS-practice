@@ -82,3 +82,57 @@ root.left.left.left = new TreeNode(1);
 root.right.right = new TreeNode(30);
 
 console.log(maxDepth(root)); // 4
+
+
+//with out helper recursion 
+
+class TreeNode {
+    constructor(val = 0, left = null, right = null) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+function maxDepth(root) {
+
+    // Base case
+    if (root === null) {
+        return 0;
+    }
+
+    // Recursively find left subtree depth
+    let left = maxDepth(root.left);
+
+    // Recursively find right subtree depth
+    let right = maxDepth(root.right);
+
+    // Return current depth
+    return 1 + Math.max(left, right);
+}
+
+// ---------------- Create Tree ----------------
+//
+//          10
+//         /  \
+//        5    20
+//       / \     \
+//      3   7     30
+//     /
+//    1
+//
+
+let root = new TreeNode(10);
+
+root.left = new TreeNode(5);
+root.right = new TreeNode(20);
+
+root.left.left = new TreeNode(3);
+root.left.right = new TreeNode(7);
+
+root.left.left.left = new TreeNode(1);
+
+root.right.right = new TreeNode(30);
+
+// Output
+console.log(maxDepth(root));
