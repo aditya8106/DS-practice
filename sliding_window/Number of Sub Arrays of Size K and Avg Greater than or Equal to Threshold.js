@@ -28,7 +28,7 @@ Constraints:
 
 // optimized solution using sliding window technique
 
-numOfSubarrays(arr, k, threshold){
+function numOfSubarrays(arr, k, threshold){
         let left = 0
         let right = k
         let count = 0
@@ -49,7 +49,7 @@ numOfSubarrays(arr, k, threshold){
             left++
           
         }
-        return count
+        return count;
     }
 
     console.log(numOfSubarrays([2,2,2,2,5,5,5,8], 3, 4)) // 3
