@@ -36,7 +36,7 @@ function brute(strs){
 
 console.log(brute(["bat","bag","bank","band"]));// output: "ba"
 
-// optimal
+// optimal solution using horizontal scanning - horizontl scanning means we will take the first string in the array as the reference string and compare it with the other strings in the array to find the longest common prefix, we will keep updating the longest common prefix until we have compared all the strings in the array
 
 function longestCommonPrefix(strs) {
     if (strs.length === 0) return "";
